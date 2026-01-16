@@ -1,0 +1,224 @@
+{
+  "metadata": {
+    "source_file": "sitemap.json",
+    "total_pages": 811,
+    "skipped": 4,
+    "generated_at": "2026-01-17 01:28:20"
+  },
+  "tree": {
+    "path": "/",
+    "name": "root",
+    "type": "page",
+    "url": "https://antique-coin-galleria.com/",
+    "title": "TOP",
+    "children": [
+      {
+        "path": "/6-tips-to-identify-fake-antique-coins",
+        "name": "6-tips-to-identify-fake-antique-coins",
+        "type": "page",
+        "url": "https://antique-coin-galleria.com/6-tips-to-identify-fake-antique-coins",
+        "title": "アンティークコインの偽物を見分ける6つのコツとは？"
+      },
+      {
+        "path": "/account",
+        "name": "account",
+        "type": "page",
+        "url": "https://antique-coin-galleria.com/account",
+        "title": "ログイン",
+        "children": [
+          {
+            "path": "/account/register",
+            "name": "register",
+            "type": "page",
+            "url": "https://antique-coin-galleria.com/account/register",
+            "title": "アカウントを作成"
+          }
+        ]
+      },
+      {
+        "path": "/blogs",
+        "name": "blogs",
+        "type": "directory",
+        "children": [
+          {
+            "path": "/blogs/news",
+            "name": "news",
+            "type": "page",
+            "url": "https://antique-coin-galleria.com/blogs/news",
+            "title": "News",
+            "children": [
+              {
+                "path": "/blogs/news/[id]",
+                "name": "[id]",
+                "type": "dynamic",
+                "count": 19
+              }
+            ]
+          },
+          {
+            "path": "/blogs/release",
+            "name": "release",
+            "type": "page",
+            "url": "https://antique-coin-galleria.com/blogs/release",
+            "title": "メディア関連情報",
+            "children": [
+              {
+                "path": "/blogs/release/[id]",
+                "name": "[id]",
+                "type": "dynamic",
+                "count": 15
+              },
+              {
+                "path": "/blogs/release/tagged",
+                "name": "tagged",
+                "type": "directory",
+                "children": [
+                  {
+                    "path": "/blogs/release/tagged/[tag]",
+                    "name": "[tag]",
+                    "type": "directory"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "path": "/blogs/times",
+            "name": "times",
+            "type": "page",
+            "url": "https://antique-coin-galleria.com/blogs/times",
+            "title": "ブログ・SNS",
+            "children": [
+              {
+                "path": "/blogs/times/[id]",
+                "name": "[id]",
+                "type": "dynamic",
+                "count": 121
+              },
+              {
+                "path": "/blogs/times/tagged",
+                "name": "tagged",
+                "type": "directory",
+                "children": [
+                  {
+                    "path": "/blogs/times/tagged/[tag]",
+                    "name": "[tag]",
+                    "type": "directory"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "/cart",
+        "name": "cart",
+        "type": "page",
+        "url": "https://antique-coin-galleria.com/cart",
+        "title": "カート"
+      },
+      {
+        "path": "/collections",
+        "name": "collections",
+        "type": "directory",
+        "children": [
+          {
+            "path": "/collections/[category]",
+            "name": "[category]",
+            "type": "directory",
+            "children": [
+              {
+                "path": "/collections/[category]/products",
+                "name": "products",
+                "type": "directory",
+                "children": [
+                  {
+                    "path": "/collections/[category]/products/[id]",
+                    "name": "[id]",
+                    "type": "dynamic",
+                    "count": 537
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "path": "/famous-british-rarity-una-and-the-lion-gold-coin-realizes-over-800000",
+        "name": "famous-british-rarity-una-and-the-lion-gold-coin-realizes-over-800000",
+        "type": "page",
+        "url": "https://antique-coin-galleria.com/famous-british-rarity-una-and-the-lion-gold-coin-realizes-over-800000",
+        "title": "有名な英国の希少コイン、ウナとライオン金貨が 80万ドル以上で落札｜アンティークコインタイムズ"
+      },
+      {
+        "path": "/pages",
+        "name": "pages",
+        "type": "directory",
+        "children": [
+          {
+            "path": "/pages/[slug]",
+            "name": "[slug]",
+            "type": "directory"
+          }
+        ]
+      },
+      {
+        "path": "/policies",
+        "name": "policies",
+        "type": "directory",
+        "children": [
+          {
+            "path": "/policies/privacy-policy",
+            "name": "privacy-policy",
+            "type": "page",
+            "url": "https://antique-coin-galleria.com/policies/privacy-policy",
+            "title": "プライバシーポリシー"
+          },
+          {
+            "path": "/policies/refund-policy",
+            "name": "refund-policy",
+            "type": "page",
+            "url": "https://antique-coin-galleria.com/policies/refund-policy",
+            "title": "返品・返金ポリシー"
+          }
+        ]
+      },
+      {
+        "path": "/products",
+        "name": "products",
+        "type": "directory",
+        "children": [
+          {
+            "path": "/products/[id]",
+            "name": "[id]",
+            "type": "dynamic",
+            "count": 16
+          }
+        ]
+      },
+      {
+        "path": "/search",
+        "name": "search",
+        "type": "page",
+        "url": "https://antique-coin-galleria.com/search",
+        "title": "検索"
+      },
+      {
+        "path": "/what-is-antique-coin-grading",
+        "name": "what-is-antique-coin-grading",
+        "type": "page",
+        "url": "https://antique-coin-galleria.com/what-is-antique-coin-grading",
+        "title": "アンティークコインのグレードの確認方法は？NGCやPCGSのグレーディングを徹底解説！"
+      },
+      {
+        "path": "/william-wyon",
+        "name": "william-wyon",
+        "type": "page",
+        "url": "https://antique-coin-galleria.com/william-wyon",
+        "title": "ウィリアム・ワイオン"
+      }
+    ]
+  }
+}
