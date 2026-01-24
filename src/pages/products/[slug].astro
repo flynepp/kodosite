@@ -9,10 +9,13 @@ import { VariantSelector } from "@/functional-components/product/VariantSelector
 import SocialShare from "@/functional-components/SocialShare";
 import Base from "@/layouts/Base.astro";
 import { getListPage } from "@/lib/contentParser.astro";
-import { getProduct, getProductRecommendations } from "@/lib/shopify";
+// TODO: 临时禁用 Shopify API
+// import { getProduct, getProductRecommendations } from "@/lib/shopify";
 
 const { slug } = Astro.params;
-const product = await getProduct(slug as string);
+// TODO: 临时返回 null，页面会重定向到 404
+// const product = await getProduct(slug as string);
+const product = null;
 
 const paymentSection = await getListPage(
   "paymentSection",
@@ -38,7 +41,8 @@ const {
   tags,
 } = product;
 
-const relatedProducts = await getProductRecommendations(id);
+// const relatedProducts = await getProductRecommendations(id);
+const relatedProducts = []; // 临时空数据
 const defaultVariantId = variants.length > 0 ? variants[0].id : undefined;
 
 const { currencySymbol } = config.shopify;

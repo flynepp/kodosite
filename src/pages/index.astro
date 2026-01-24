@@ -1,47 +1,69 @@
 ---
 import FeaturedProducts from "@/components/FeaturedProducts.astro";
 import config from "@/config/config.json";
-import CollectionsSlider from "@/functional-components/CollectionsSlider";
+// TODO: 临时禁用 CollectionsSlider，有打包兼容性问题
+// import CollectionsSlider from "@/functional-components/CollectionsSlider";
 import Base from "@/layouts/Base.astro";
-import { getCollectionProducts, getCollections } from "@/lib/shopify";
+// import { getCollectionProducts, getCollections } from "@/lib/shopify";
 import CallToAction from "@/partials/CallToAction.astro";
-import HeroSlider from "src/layouts/functional-components/HeroSlider";
+// TODO: 临时禁用 HeroSlider (使用 Swiper)
+// import HeroSlider from "src/layouts/functional-components/HeroSlider";
 
 const { collections } = config.shopify;
 
+// TODO: 临时禁用 Shopify API 调用，后续改为自建 API
 // Fetch slider images for the HeroSlider
-const sliderImages = await getCollectionProducts({
-  collection: collections.hero_slider,
-});
-const heroProducts = sliderImages.products;
+// const sliderImages = await getCollectionProducts({
+//   collection: collections.hero_slider,
+// });
+// const heroProducts = sliderImages.products;
+const heroProducts = []; // 临时空数据
 
-const collectionProducts = await getCollections();
+// const collectionProducts = await getCollections();
+const collectionProducts = []; // 临时空数据
 
 // Fetch featured products
-const { products: featuredProducts } = await getCollectionProducts({
-  collection: collections.featured_products,
-  reverse: false,
-});
+// const { products: featuredProducts } = await getCollectionProducts({
+//   collection: collections.featured_products,
+//   reverse: false,
+// });
+const featuredProducts = []; // 临时空数据
 ---
 
 <Base>
-  <section>
+  {/* Hero section */}
+  {/* TODO: 临时禁用 HeroSlider (Swiper 兼容性问题) */}
+  {
+    /* <section>
     <div class="container">
       <div class="bg-gradient py-10 rounded-md">
         <HeroSlider products={heroProducts} client:load />
       </div>
     </div>
+  </section> */
+  }
+
+  <section>
+    <div class="container">
+      <div class="bg-gradient py-20 rounded-md text-center">
+        <h1 class="text-4xl font-bold mb-4">欢迎访问</h1>
+        <p class="text-lg">网站正在开发中...</p>
+      </div>
+    </div>
   </section>
 
   {/* category section */}
-  <section class="section">
+  {/* TODO: 临时禁用，有兼容性问题 */}
+  {
+    /* <section class="section">
     <div class="container">
       <div class="text-center mb-6 md:mb-14">
         <h2>Collections</h2>
       </div>
       <CollectionsSlider client:load collections={collectionProducts} />
     </div>
-  </section>
+  </section> */
+  }
 
   {/* Featured Products section */}
   <section>

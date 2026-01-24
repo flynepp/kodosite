@@ -1,0 +1,256 @@
+---
+import Base from "@/layouts/Base.astro";
+---
+
+<Base title="富文本编辑器测试">
+  <div class="container py-20">
+    <h1 class="text-3xl font-bold mb-6">富文本编辑器测试</h1>
+
+    <div id="editor-wrapper">
+      <div id="toolbar-container"><!-- 工具栏 --></div>
+      <div id="editor-container"><!-- 编辑器 --></div>
+    </div>
+
+    <div class="mt-6">
+      <button
+        id="btn-get-html"
+        class="px-4 py-2 bg-blue-500 text-white rounded"
+      >
+        获取 HTML
+      </button>
+      <button
+        id="btn-get-text"
+        class="px-4 py-2 bg-green-500 text-white rounded ml-2"
+      >
+        获取纯文本
+      </button>
+    </div>
+
+    <div id="output" class="mt-4 p-4 bg-gray-100 rounded hidden">
+      <h3 class="font-bold mb-2">输出内容：</h3>
+      <pre class="whitespace-pre-wrap"></pre>
+    </div>
+  </div>
+</Base>
+
+<style>
+  #editor-wrapper {
+    border: 1px solid #ccc;
+    z-index: 100;
+  }
+  #toolbar-container {
+    border-bottom: 1px solid #ccc;
+  }
+  #editor-container {
+    height: 500px;
+    overflow-y: auto;
+  }
+</style>
+
+<script>
+  // 使用 type="module" 让我们可以使用 import
+  import { createEditor, createToolbar } from "@wangeditor/editor";
+  import type { IDomEditor } from "@wangeditor/editor";
+
+  // 定义图片元素类型
+  type ImageElement = {
+    src: string;
+    alt: string;
+    url: string;
+    href: string;
+  };
+
+  // 定义视频元素类型
+  type VideoElement = {
+    src: string;
+    poster?: string;
+  };
+
+  // 等待 DOM 加载完成
+  window.addEventListener("DOMContentLoaded", () => {
+    const editorConfig: any = {
+      placeholder: "请输入内容...支持图片和视频上传",
+      onChange(editor: IDomEditor) {
+        const html = editor.getHtml();
+        console.log("编辑器内容:", html);
+      },
+      // 配置上传图片和视频
+      MENU_CONF: {},
+    };
+
+    // 配置图片上传
+    editorConfig.MENU_CONF["uploadImage"] = {
+      server: "/api/upload-image",
+      fieldName: "wangeditor-uploaded-image",
+
+      // 单个文件的最大体积限制，改为 5M
+      maxFileSize: 5 * 1024 * 1024, // 5M
+
+      // 最多可上传几个文件
+      maxNumberOfFiles: 10,
+
+      // 选择文件时的类型限制
+      allowedFileTypes: ["image/*"],
+
+      // 跨域是否传递 cookie
+      withCredentials: false,
+
+      // 超时时间，默认为 10 秒
+      timeout: 10 * 1000,
+
+      // 上传之前触发
+      onBeforeUpload(file: File) {
+        console.log("准备上传:", file.name);
+        return file;
+      },
+
+      // 上传进度的回调函数
+      onProgress(progress: number) {
+        console.log("上传进度:", progress);
+      },
+
+      // 单个文件上传成功之后
+      onSuccess(file: File, res: any) {
+        console.log(`${file.name} 上传成功`, res);
+      },
+
+      // 单个文件上传失败
+      onFailed(file: File, res: any) {
+        console.error(`${file.name} 上传失败`, res);
+        alert(`${file.name} 上传失败: ${res.message || "未知错误"}`);
+      },
+
+      // 上传错误，或者触发 timeout 超时
+      onError(file: File, err: any, res: any) {
+        console.error(`${file.name} 上传出错`, err, res);
+        alert(`${file.name} 上传出错`);
+      },
+    };
+
+    // 配置插入图片
+    editorConfig.MENU_CONF["insertImage"] = {
+      onInsertedImage(imageNode: ImageElement | null) {
+        if (imageNode == null) return;
+        const { src, alt, url, href } = imageNode;
+        console.log("插入图片", src, alt, url, href);
+      },
+    };
+
+    // 配置视频上传
+    editorConfig.MENU_CONF["uploadVideo"] = {
+      server: "/api/upload-video",
+      fieldName: "wangeditor-uploaded-video",
+
+      // 单个文件的最大体积限制，默认为 10M，这里设置为 50M
+      maxFileSize: 50 * 1024 * 1024, // 50M
+
+      // 最多可上传几个文件，默认为 5
+      maxNumberOfFiles: 3,
+
+      // 选择文件时的类型限制
+      allowedFileTypes: ["video/*"],
+
+      // 跨域是否传递 cookie
+      withCredentials: false,
+
+      // 超时时间，默认为 30 秒，视频较大可能需要更长时间
+      timeout: 60 * 1000, // 60 秒
+
+      // 上传之前触发
+      onBeforeUpload(file: File) {
+        console.log("准备上传视频:", file.name);
+        return file;
+      },
+
+      // 上传进度的回调函数
+      onProgress(progress: number) {
+        console.log("视频上传进度:", progress);
+      },
+
+      // 单个文件上传成功之后
+      onSuccess(file: File, res: any) {
+        console.log(`${file.name} 上传成功`, res);
+      },
+
+      // 单个文件上传失败
+      onFailed(file: File, res: any) {
+        console.error(`${file.name} 上传失败`, res);
+        alert(`${file.name} 上传失败: ${res.message || "未知错误"}`);
+      },
+
+      // 上传错误，或者触发 timeout 超时
+      onError(file: File, err: any, res: any) {
+        console.error(`${file.name} 上传出错`, err, res);
+        alert(`${file.name} 上传出错，可能文件过大或网络超时`);
+      },
+    };
+
+    // 配置插入视频
+    editorConfig.MENU_CONF["insertVideo"] = {
+      onInsertedVideo(videoNode: VideoElement | null) {
+        if (videoNode == null) return;
+        const { src, poster } = videoNode;
+        console.log("插入视频", src, poster);
+      },
+      // 自定义校验视频
+      checkVideo(src: string, poster: string): boolean | string | undefined {
+        if (!src) {
+          return;
+        }
+        if (src.indexOf("http") !== 0 && src.indexOf("/") !== 0) {
+          return "视频地址必须以 http/https 开头或为相对路径";
+        }
+        return true;
+      },
+    };
+
+    const editor = createEditor({
+      selector: "#editor-container",
+      html: "<p>Hello World! 这是一个富文本编辑器。</p><p>✨ 支持上传<strong>图片</strong>和<strong>视频</strong></p><p>📸 图片最大 5MB</p><p>🎬 视频最大 50MB</p>",
+      config: editorConfig,
+      mode: "default",
+    });
+
+    const toolbarConfig = {};
+
+    const toolbar = createToolbar({
+      editor,
+      selector: "#toolbar-container",
+      config: toolbarConfig,
+      mode: "default",
+    });
+
+    // 获取 HTML 按钮
+    document.getElementById("btn-get-html")?.addEventListener("click", () => {
+      const html = editor.getHtml();
+      const output = document.getElementById("output");
+      const pre = output?.querySelector("pre");
+      if (output && pre) {
+        output.classList.remove("hidden");
+        pre.textContent = html;
+      }
+    });
+
+    // 获取纯文本按钮
+    document.getElementById("btn-get-text")?.addEventListener("click", () => {
+      const text = editor.getText();
+      const output = document.getElementById("output");
+      const pre = output?.querySelector("pre");
+      if (output && pre) {
+        output.classList.remove("hidden");
+        pre.textContent = text;
+      }
+    });
+
+    // 页面卸载时销毁编辑器
+    window.addEventListener("beforeunload", () => {
+      editor.destroy();
+    });
+  });
+</script>
+
+<!-- 引入编辑器样式 -->
+<link
+  href="https://unpkg.com/@wangeditor/editor@latest/dist/css/style.css"
+  rel="stylesheet"
+/>

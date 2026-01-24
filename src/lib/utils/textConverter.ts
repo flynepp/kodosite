@@ -1,5 +1,12 @@
 import { slug } from "github-slugger";
+// 修复 marked 导入方式
 import { marked } from "marked";
+
+// 确保 marked 可用
+const markedParser = marked || (() => {
+  console.warn('marked is not available');
+  return { parse: (s: string) => s, parseInline: (s: string) => s };
+})();
 
 // slugify
 export const slugify = (content: string) => {
@@ -8,7 +15,13 @@ export const slugify = (content: string) => {
 
 // markdownify
 export const markdownify = (content: string, div?: boolean) => {
-  return div ? marked.parse(content) : marked.parseInline(content);
+  if (!content) return "";
+  try {
+    return div ? markedParser.parse(content) : markedParser.parseInline(content);
+  } catch (error) {
+    console.error('Markdown parse error:', error);
+    return content;
+  }
 };
 
 // humanize
@@ -33,11 +46,17 @@ export const titleify = (content: string) => {
 
 // plainify
 export const plainify = (content: string) => {
-  const parseMarkdown: any = marked.parse(content);
-  const filterBrackets = parseMarkdown.replace(/<\/?[^>]+(>|$)/gm, "");
-  const filterSpaces = filterBrackets.replace(/[\r\n]\s*[\r\n]/gm, "");
-  const stripHTML = htmlEntityDecoder(filterSpaces);
-  return stripHTML;
+  if (!content) return "";
+  try {
+    const parseMarkdown: any = markedParser.parse(content);
+    const filterBrackets = parseMarkdown.replace(/<\/?[^>]+(>|$)/gm, "");
+    const filterSpaces = filterBrackets.replace(/[\r\n]\s*[\r\n]/gm, "");
+    const stripHTML = htmlEntityDecoder(filterSpaces);
+    return stripHTML;
+  } catch (error) {
+    console.error('Plainify error:', error);
+    return content;
+  }
 };
 
 // strip entities for plainify
